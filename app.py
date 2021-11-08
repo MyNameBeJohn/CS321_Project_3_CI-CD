@@ -12,7 +12,9 @@ def home():
 @app.route("/add/", methods=["POST"])
 def add():
 	new_todo_item = request.form.get("new_todo")
-	todo_list.append((new_todo_item, {"check":0}))
+	priority = request.form.get("priority")
+
+	todo_list.append((new_todo_item, {"check":0, "priority":priority}))
 
 	return redirect(url_for("home"))
 

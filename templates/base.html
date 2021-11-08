@@ -11,7 +11,19 @@
     <form action="/add" method="post">
     	<div>
     		<label for="title">New Item</label>
-    		<input type="text" name="new_todo" placeholder="New Task">
+    		<input type="text" name="new_todo" placeholder="New Task"><br>
+
+    		<input type="radio" name="priority" value="1" checked>
+			<label for="1">1</label>
+			<input type="radio" name="priority" value="2">
+			<label for="2">2</label>
+			<input type="radio" name="priority" value="3">
+			<label for="3">3</label>
+			<input type="radio" name="priority" value="4">
+			<label for="4">4</label>
+			<input type="radio" name="priority" value="5">
+			<label for="5">5</label><br>
+
     		<button type="submit">Add</button>
     	</div>
     </form>
