@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run black on code
-      uses: --psf/black@stable
+      uses: psf/black@stable
     - run: |
         git fetch --prune --unshallow
     - name: Set up Python 3.8
