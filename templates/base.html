@@ -8,8 +8,19 @@
 <body>
 	<h1>Home Page</h1>
 	<p>This is being tested as part of project 3</p>
+    <form action="/add" method="post">
+    	<div>
+    		<label for="title">New Item</label>
+    		<input type="text" name="new_todo" placeholder="New Task">
+    		<button type="submit">Add</button>
+    	</div>
+    </form>
+
+    {% for task in todo_list %}
+    	<p> {{task}} </p>
+    	<a href="/remove/{{task}}">remove</a>
+    {% endfor %}
 
 	<footer>
-		<p>test</p>
 	</footer>
 </body>
