@@ -1,3 +1,4 @@
+requests
 Flask==2.0.2
 pytest==6.2.5
 virtualenv==20.10.0

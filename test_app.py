@@ -8,5 +8,6 @@ website_path = "https://to-do-cs321.herokuapp.com/"
 def test_welcome():
 	# more intreesting way to test the the page works
 	client = app.test_client()
-	response = client.get("/welcome")
+	response = client.get("/")
+	print(response.status_code)
 	assert response.status_code == 200  # success
