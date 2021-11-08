@@ -16,10 +16,21 @@
     	</div>
     </form>
 
-    {% for task in todo_list %}
-    	<p> {{task}} </p>
-    	<a href="/remove/{{task}}">remove</a>
-    {% endfor %}
+	<table>
+		{% for i,(task_name, data) in enumerated_todo_list %}
+			<tr> 
+				<td><a href="/up/{{i}}">up</a></td>
+				<td><a href="/down/{{i}}">down</a></td>
+				{% if data["check"] %}
+					<td><a href="/toggle_check/{{i}}">x</a></td>
+				{% else %}
+					<td><a href="/toggle_check/{{i}}">o</a></td>
+				{% endif %}
+				<td>{{task_name}}</td>
+				<td><a href="/remove/{{i}}">remove</a></td>
+			</tr>
+		{% endfor %}
+	</table>
 
 	<footer>
 	</footer>
