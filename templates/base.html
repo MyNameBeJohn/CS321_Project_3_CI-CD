@@ -7,46 +7,56 @@
 	<title>Flask Home Page</title>
 </head>
 <body>
-	<h1>Home Page</h1>
-	<p>This is being tested as part of project 3</p>
-    <form action="/add" method="post">
-    	<div>
-    		<label for="title">Enter New Task</label>
-    		<input type="text" name="new_todo" placeholder="New Task"><br>
+	<div id="bg-right"></div>
+	<div id="bg-left"></div>
+	<h1 class="h1">To Do List</h1>
+	<p>Enter your task, priority, day of the week and click add</p><br>
+	<div class="block">
+		<form action="/add" method="post">
+			<div style="text-align: center;">
+				<label for="title">Enter New Task: </label>
+				<button type="submit" class="pull-left">Add</button>
+				<input type="text" name="new_todo" placeholder="New Task">
+			</div>
 
+			<div style="text-align: center;">
+			<table>
+				<td>
+					Priority: 
+					<input type="radio" name="priority" value="1" checked>
+					<label for="1">1</label>
+					<input type="radio" name="priority" value="2">
+					<label for="2">2</label>
+					<input type="radio" name="priority" value="3">
+					<label for="3">3</label>
+					<input type="radio" name="priority" value="4">
+					<label for="4">4</label>
+					<input type="radio" name="priority" value="5">
+					<label for="5">5</label>
+				</td>
+			</div><br>
 
-    		Priority: 
-    		<input type="radio" name="priority" value="1" checked>
-			<label for="1">1</label>
-			<input type="radio" name="priority" value="2">
-			<label for="2">2</label>
-			<input type="radio" name="priority" value="3">
-			<label for="3">3</label>
-			<input type="radio" name="priority" value="4">
-			<label for="4">4</label>
-			<input type="radio" name="priority" value="5">
-			<label for="5">5</label><br>
-
-
-			Day of Week:
-    		<input type="radio" name="dow" value="Monday" checked>
-			<label for="M">M</label>
-			<input type="radio" name="dow" value="Tuesday">
-			<label for="T">T</label>
-			<input type="radio" name="dow" value="Wednesday">
-			<label for="W">W</label>
-			<input type="radio" name="dow" value="Thursday">
-			<label for="Th">Th</label>
-			<input type="radio" name="dow" value="Friday">
-			<label for="F">F</label>
-			<input type="radio" name="dow" value="Saturday">
-			<label for="S">S</label>
-			<input type="radio" name="dow" value="Sunday">
-			<label for="Su">Su</label><br>
-
-    		<button type="submit">Add</button>
-    	</div>
-    </form>
+			<table>
+				<td>
+					Day of Week:
+					<input type="radio" name="dow" value="Monday" checked>
+					<label for="M">M</label>
+					<input type="radio" name="dow" value="Tuesday">
+					<label for="T">T</label>
+					<input type="radio" name="dow" value="Wednesday">
+					<label for="W">W</label>
+					<input type="radio" name="dow" value="Thursday">
+					<label for="Th">Th</label>
+					<input type="radio" name="dow" value="Friday">
+					<label for="F">F</label>
+					<input type="radio" name="dow" value="Saturday">
+					<label for="S">S</label>
+					<input type="radio" name="dow" value="Sunday">
+					<label for="Su">Su</label>
+				</td><br>
+			</table>
+		</form>
+	</div>
 
 	<table>
 		{% for day_number, day, enumerated_day_tasks in enumerated_todo_list %}

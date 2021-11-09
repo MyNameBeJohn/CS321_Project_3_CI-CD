@@ -1,9 +1,62 @@
+h1{
+	text-align: center;
+	margin:auto;
+	font-family: fantasy;
+	font-size: 200%;
+}
+
+p{
+	text-align: center;
+	margin: auto;
+	font-family: fantasy;
+	font-size: 150%;
+}
+
+body{
+	background-color:cadetblue;
+}
+
+.block{
+	background-color: rgb(211, 190, 190);
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#bg-right {
+	background-color:rgb(211, 190, 190);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 90%;
+	right: 0;
+	z-index: -1;
+  }
+
+#bg-left {
+	background-color:rgb(211, 190, 190);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 90%;
+	z-index: -1;
+  }
+
 table, td, th {
 	border:  1px solid black;
+	margin: auto;
+	background-color: white;
+}
+
+td{
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 th {
 	min-width: 400px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .checkbox {
