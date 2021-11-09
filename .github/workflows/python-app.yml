@@ -14,18 +14,31 @@ jobs:
     - uses: actions/checkout@v2
     - run: |
         git fetch --prune --unshallow
+        
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
       with:
         python-version: 3.8
+        
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Run black on code
+        
+    - name: Test with pytest
       run: |
-        pip install black
-        black *.py
+        pip install pytest
+        pytest
+        
+    - name: Check files using the black formatter
+      uses: rickstaa/action-black@v1
+      id: action_black
+      with:
+        black_args: "."
+    - name: Create Pull Request of changes made
+      if: steps.action_black.outputs.is_formatted == 'true'
+      uses: peter-evans/create-pull-request@v3
+      
     - name: Lint with flake8
       run: |
         pip install flake8
@@ -33,10 +46,16 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        pip install pytest
-        pytest
+
+    - name: Check test code coverage
+      uses: alexanderdamiani/pytester-cov@v1.2.1
+      with:
+        pytest-root-dir: . 
+        pytest-tests-dir: .
+        requirements-file: requirements.txt 
+        cov-threshold-single: 70 
+        cov-threshold-total: 90 
+        
     - name: Deploy to heroku
       uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
       with:
