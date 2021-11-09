@@ -32,7 +32,6 @@ def test_add():
 	assert todo_list[1][0][0] == "Task 1" 
 	assert todo_list[1][0][1]["check"] == 0
 	assert todo_list[1][0][1]["priority"] == "3" 
-	assert todo_list[1][0][1]["dow"] == "Tuesday"
 
 	# add another item
 	data = {"new_todo": "Task 2", "priority": "2", "dow": "Tuesday"}
@@ -40,10 +39,9 @@ def test_add():
 
 	# check list len
 	assert len(todo_list[1]) == 2
-	assert todo_list[1][0][0] == "Task 2" 
-	assert todo_list[1][0][1]["check"] == 0
-	assert todo_list[1][0][1]["priority"] == "2" 
-	assert todo_list[1][0][1]["dow"] == "Tuesday"
+	assert todo_list[1][1][0] == "Task 2" 
+	assert todo_list[1][1][1]["check"] == 0
+	assert todo_list[1][1][1]["priority"] == "2" 
 
 	# make sure both added items on home page
 	response = client.get("/")
