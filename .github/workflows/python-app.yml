@@ -23,9 +23,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run black on code
-      run: |
-        pip install black
-        black *.py
+      uses: psf/black@stable
+      with:
+        options: "--verbose"
+        src: "."
+        
     - name: Lint with flake8
       run: |
         pip install flake8
