@@ -23,10 +23,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run black on code
-      uses: psf/black@stable
+      uses: rickstaa/action-black@v1
       with:
-        options: "--verbose"
-        src: "."
+        black_args: ". --check"
         
     - name: Lint with flake8
       run: |
