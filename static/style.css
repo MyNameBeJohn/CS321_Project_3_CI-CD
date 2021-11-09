@@ -1,0 +1,41 @@
+table, td, th {
+	border:  1px solid black;
+}
+
+th {
+	min-width: 400px;
+}
+
+.checkbox {
+	text-align:  center;
+}
+
+.task {
+	padding-left: 5px;
+	padding-right:  5px;
+}
+
+a {
+	color: black;
+	text-decoration:  none;
+}
+
+.priority1 {
+	background-color: red;
+}
+
+.priority2 {
+	background-color: orange;
+}
+
+.priority3 {
+	background-color: yellow;
+}
+
+.priority4 {
+	background-color: green;
+}
+
+.priority5 {
+	background-color: blue;
+}
