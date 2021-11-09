@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="static/style.css">
 	<title>Flask Home Page</title>
 </head>
 <body>
@@ -10,9 +11,11 @@
 	<p>This is being tested as part of project 3</p>
     <form action="/add" method="post">
     	<div>
-    		<label for="title">New Item</label>
+    		<label for="title">Enter New Task</label>
     		<input type="text" name="new_todo" placeholder="New Task"><br>
 
+
+    		Priority: 
     		<input type="radio" name="priority" value="1" checked>
 			<label for="1">1</label>
 			<input type="radio" name="priority" value="2">
@@ -24,23 +27,43 @@
 			<input type="radio" name="priority" value="5">
 			<label for="5">5</label><br>
 
+
+			Day of Week:
+    		<input type="radio" name="dow" value="Monday" checked>
+			<label for="M">M</label>
+			<input type="radio" name="dow" value="Tuesday">
+			<label for="T">T</label>
+			<input type="radio" name="dow" value="Wednesday">
+			<label for="W">W</label>
+			<input type="radio" name="dow" value="Thursday">
+			<label for="Th">Th</label>
+			<input type="radio" name="dow" value="Friday">
+			<label for="F">F</label>
+			<input type="radio" name="dow" value="Saturday">
+			<label for="S">S</label>
+			<input type="radio" name="dow" value="Sunday">
+			<label for="Su">Su</label><br>
+
     		<button type="submit">Add</button>
     	</div>
     </form>
 
 	<table>
-		{% for i,(task_name, data) in enumerated_todo_list %}
-			<tr> 
-				<td><a href="/up/{{i}}">up</a></td>
-				<td><a href="/down/{{i}}">down</a></td>
-				{% if data["check"] %}
-					<td><a href="/toggle_check/{{i}}">x</a></td>
-				{% else %}
-					<td><a href="/toggle_check/{{i}}">o</a></td>
-				{% endif %}
-				<td>{{task_name}}</td>
-				<td><a href="/remove/{{i}}">remove</a></td>
-			</tr>
+		{% for day_number, day, enumerated_day_tasks in enumerated_todo_list %}
+			<tr> <th colspan="5"> {{day}} </th> </tr>
+			{% for i, (task_name, data) in enumerated_day_tasks %}
+				<tr> 
+					<td class="button"><a href="/up/{{day_number}}/{{i}}"><button type="button">up</button></a></td>
+					<td class="button"><a href="/down/{{day_number}}/{{i}}"><button type="button">down</button></a></td>
+					{% if data["check"] %}
+						<td class="checkbox"><a href="/toggle_check/{{day_number}}/{{i}}">[x]</a></td>
+					{% else %}
+						<td class="checkbox"><a href="/toggle_check/{{day_number}}/{{i}}">[ ]</a></td>
+					{% endif %}
+					<td class="task priority{{data['priority']}}"> {{task_name}} </td>
+					<td class="button"><a href="/remove/{{day_number}}/{{i}}"><button type="button">remove</button></a></td>
+				</tr>
+			{% endfor %}
 		{% endfor %}
 	</table>
 
