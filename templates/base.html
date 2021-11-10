@@ -5,6 +5,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="static/style.css">
 	<title>Flask Home Page</title>
+	<div id="block">
+		<p id="clock">Here will be our time</p>
+	</div>
+	<script>
+		var clock = document.getElementById("clock");
+	
+		setInterval(() => {
+			fetch("{{ url_for('time_feed') }}")
+			.then(response => {
+					response.text().then(t => {clock.innerHTML = t})
+				});
+			}, 1000);  
+	</script>
 </head>
 <body>
 	<div id="bg-right"></div>
@@ -63,6 +76,16 @@
 							<label for="Su">Su</label>
 						</td>
 					</tr>
+
+					<tr>
+						<td>					
+							<label for="title">Enter Tags</label>
+						</td>
+						<td>
+							<input type="text" name="tags" placeholder="Space Separated Tags">
+						</td>
+					</tr>
+
 				</table>
 			</div>
 		</form>
@@ -71,11 +94,13 @@
 	<div class="block">
 		<table>
 			{% for day_number, day, enumerated_day_tasks in enumerated_todo_list %}
-				<tr> <th colspan="5"> {{day}} </th> </tr>
+				<tr> <th colspan="7"> {{day}} </th> </tr>
 				{% for i, (task_name, data) in enumerated_day_tasks %}
 					<tr> 
+						<td>{{data["time"]}}</td>
 						<td class="button"><a href="/up/{{day_number}}/{{i}}"><button type="button">up</button></a></td>
 						<td class="button"><a href="/down/{{day_number}}/{{i}}"><button type="button">down</button></a></td>
+						<td>{{' '.join(data["tags"])}}</td>
 						{% if data["check"] %}
 							<td class="checkbox"><a href="/toggle_check/{{day_number}}/{{i}}">[x]</a></td>
 						{% else %}

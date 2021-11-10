@@ -1,4 +1,6 @@
+from datetime import datetime
 from flask import Flask, render_template, request, url_for, redirect
+from flask.wrappers import Response
 
 app = Flask(__name__)
 
@@ -19,6 +21,8 @@ day_to_idx = {day: i for i, day in enumerate(days_of_week)}
 
 @app.route("/")
 def home():
+
+
     enumerated_todo_list = [enumerate(day) for day in todo_list]
     print(archived)
     return render_template(
@@ -29,15 +33,27 @@ def home():
         archived=archived,
     )
 
+@app.route("/time_feed/")
+def time_feed():
+    def generate_time():
+        yield datetime.now().strftime("%H:%M:%S")
+
+    return Response(generate_time(), mimetype="text")
 
 @app.route("/add/", methods=["POST"])
 def add():
     new_todo_item = request.form.get("new_todo")
     priority = request.form.get("priority")
     dow = request.form.get("dow")
-
+    tags = request.form.get("tags").split(" ")
+    new_tags = []
+    for t in tags:
+        new_tags.append("#" + t) 
+    time = datetime.now().strftime("%H:%M")
+    
+    
     todo_list[day_to_idx[dow]].append(
-        (new_todo_item, {"check": 0, "priority": priority})
+        (new_todo_item, {"check": 0, "priority": priority, "tags": new_tags, "time":time})
     )
 
     return redirect(url_for("home"))
