@@ -13,69 +13,96 @@
 	<p>Enter your task, priority, day of the week and click add</p><br>
 	<div class="block">
 		<form action="/add" method="post">
+
 			<div style="text-align: center;">
-				<label for="title">Enter New Task: </label>
-				<button type="submit" class="pull-left">Add</button>
-				<input type="text" name="new_todo" placeholder="New Task">
+				<table>
+					<tr>
+						<td>					
+							<label for="title">Enter New Task </label>
+						</td>
+						<td>
+							<input type="text" name="new_todo" placeholder="New Task">
+							<button type="submit" class="pull-left">Add</button>							
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Priority 
+						</td>
+						<td>
+							<input type="radio" name="priority" value="1" checked>
+							<label for="1">1</label>
+							<input type="radio" name="priority" value="2">
+							<label for="2">2</label>
+							<input type="radio" name="priority" value="3">
+							<label for="3">3</label>
+							<input type="radio" name="priority" value="4">
+							<label for="4">4</label>
+							<input type="radio" name="priority" value="5">
+							<label for="5">5</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Day of Week
+						</td>
+						<td>							
+							<input type="radio" name="dow" value="Monday" checked>
+							<label for="M">M</label>
+							<input type="radio" name="dow" value="Tuesday">
+							<label for="T">T</label>
+							<input type="radio" name="dow" value="Wednesday">
+							<label for="W">W</label>
+							<input type="radio" name="dow" value="Thursday">
+							<label for="Th">Th</label>
+							<input type="radio" name="dow" value="Friday">
+							<label for="F">F</label>
+							<input type="radio" name="dow" value="Saturday">
+							<label for="S">S</label>
+							<input type="radio" name="dow" value="Sunday">
+							<label for="Su">Su</label>
+						</td>
+					</tr>
+				</table>
 			</div>
-
-			<div style="text-align: center;">
-			<table>
-				<td>
-					Priority: 
-					<input type="radio" name="priority" value="1" checked>
-					<label for="1">1</label>
-					<input type="radio" name="priority" value="2">
-					<label for="2">2</label>
-					<input type="radio" name="priority" value="3">
-					<label for="3">3</label>
-					<input type="radio" name="priority" value="4">
-					<label for="4">4</label>
-					<input type="radio" name="priority" value="5">
-					<label for="5">5</label>
-				</td>
-			</div><br>
-
-			<table>
-				<td>
-					Day of Week:
-					<input type="radio" name="dow" value="Monday" checked>
-					<label for="M">M</label>
-					<input type="radio" name="dow" value="Tuesday">
-					<label for="T">T</label>
-					<input type="radio" name="dow" value="Wednesday">
-					<label for="W">W</label>
-					<input type="radio" name="dow" value="Thursday">
-					<label for="Th">Th</label>
-					<input type="radio" name="dow" value="Friday">
-					<label for="F">F</label>
-					<input type="radio" name="dow" value="Saturday">
-					<label for="S">S</label>
-					<input type="radio" name="dow" value="Sunday">
-					<label for="Su">Su</label>
-				</td><br>
-			</table>
 		</form>
 	</div>
 
-	<table>
-		{% for day_number, day, enumerated_day_tasks in enumerated_todo_list %}
-			<tr> <th colspan="5"> {{day}} </th> </tr>
-			{% for i, (task_name, data) in enumerated_day_tasks %}
+	<div class="block">
+		<table>
+			{% for day_number, day, enumerated_day_tasks in enumerated_todo_list %}
+				<tr> <th colspan="5"> {{day}} </th> </tr>
+				{% for i, (task_name, data) in enumerated_day_tasks %}
+					<tr> 
+						<td class="button"><a href="/up/{{day_number}}/{{i}}"><button type="button">up</button></a></td>
+						<td class="button"><a href="/down/{{day_number}}/{{i}}"><button type="button">down</button></a></td>
+						{% if data["check"] %}
+							<td class="checkbox"><a href="/toggle_check/{{day_number}}/{{i}}">[x]</a></td>
+						{% else %}
+							<td class="checkbox"><a href="/toggle_check/{{day_number}}/{{i}}">[ ]</a></td>
+						{% endif %}
+						<td class="task priority{{data['priority']}}"> {{task_name}} </td>
+						<td class="button"><a href="/remove/{{day_number}}/{{i}}"><button type="button">remove</button></a></td>
+					</tr>
+				{% endfor %}
+			{% endfor %}
+		</table>
+	</div>
+
+	<div class="clear">
+		<a href="/clear"><button type="button">Clear Completed</button></a>
+	</div>
+
+	<div class="block">
+		<table>
+			<tr> <th colspan="1"> Archive </th> </tr>
+			{% for item in archived %}
 				<tr> 
-					<td class="button"><a href="/up/{{day_number}}/{{i}}"><button type="button">up</button></a></td>
-					<td class="button"><a href="/down/{{day_number}}/{{i}}"><button type="button">down</button></a></td>
-					{% if data["check"] %}
-						<td class="checkbox"><a href="/toggle_check/{{day_number}}/{{i}}">[x]</a></td>
-					{% else %}
-						<td class="checkbox"><a href="/toggle_check/{{day_number}}/{{i}}">[ ]</a></td>
-					{% endif %}
-					<td class="task priority{{data['priority']}}"> {{task_name}} </td>
-					<td class="button"><a href="/remove/{{day_number}}/{{i}}"><button type="button">remove</button></a></td>
+					<td class="task priority{{item[1]['priority']}}"> {{item[0]}} </td>
 				</tr>
 			{% endfor %}
-		{% endfor %}
-	</table>
+		</table>
+	</div>
 
 	<footer>
 	</footer>

@@ -13,13 +13,25 @@ p{
 }
 
 body{
-	background-color:cadetblue;
+	background-color: cadetblue;
+}
+
+.clear{
+	text-align: center;
+	background-color: beige;
+	padding: 10px;
+	margin: 25px;
+	width: 10%;
+	transform:  translateX(375%);
 }
 
 .block{
-	background-color: rgb(211, 190, 190);
-	padding-top: 10px;
-	padding-bottom: 10px;
+	background-color: beige;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin: 25px;
+	width: 50%;
+	transform:  translateX(50%);
 }
 
 #bg-right {
@@ -73,11 +85,11 @@ a {
 	text-decoration:  none;
 }
 
-.priority1 {
+.priority5 {
 	background-color: red;
 }
 
-.priority2 {
+.priority4 {
 	background-color: orange;
 }
 
@@ -85,10 +97,10 @@ a {
 	background-color: yellow;
 }
 
-.priority4 {
-	background-color: green;
+.priority2 {
+	background-color: lightgreen;
 }
 
-.priority5 {
-	background-color: blue;
+.priority1 {
+	background-color: lightblue;
 }

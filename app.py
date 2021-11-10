@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, url_for, redirect
 
 app = Flask(__name__)
 
+archived = []
+
 days_of_week = [
     "Monday",
     "Tuesday",
@@ -18,11 +20,13 @@ day_to_idx = {day: i for i, day in enumerate(days_of_week)}
 @app.route("/")
 def home():
     enumerated_todo_list = [enumerate(day) for day in todo_list]
+    print(archived)
     return render_template(
         "base.html",
         enumerated_todo_list=zip(
             [*range(len(days_of_week))], days_of_week, enumerated_todo_list
         ),
+        archived=archived,
     )
 
 
@@ -43,6 +47,20 @@ def add():
 def remove(day_number, task_number):
     todo_list[day_number].pop(task_number)
     return redirect(url_for("home"))
+
+@app.route("/clear")
+def clear_completed():
+	remove = []
+	for i, day in enumerate(todo_list):
+		for j, (task_name, data) in enumerate(day):
+			if data["check"]:
+				archived.append(day[j])
+				remove.append((i, j))
+
+	for i, j in reversed(remove):
+		todo_list[i].pop(j)
+
+	return redirect(url_for("home"))
 
 
 @app.route("/up/<int:day_number>/<int:task_number>")
