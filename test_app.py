@@ -1,6 +1,6 @@
 from app import *
 from flask import template_rendered
-from datetime import datetime 
+from datetime import datetime
 
 # website_path = "https://to-do-cs321.herokuapp.com/"
 website_path = "http://127.0.0.1:5000/"
@@ -15,13 +15,19 @@ def test_home():
 
 
 def test_add():
-    #Get Current Time: 
+    # Get Current Time:
     current_time = datetime.now().strftime("%H:%M")
 
     # add an item
     client = app.test_client()
     url = "/add/"
-    data = {"new_todo": "Task 1", "priority": "3", "dow": "Tuesday", "tags": "Home Dog", "time": datetime.now().strftime("%H:%M")}
+    data = {
+        "new_todo": "Task 1",
+        "priority": "3",
+        "dow": "Tuesday",
+        "tags": "Home Dog",
+        "time": datetime.now().strftime("%H:%M"),
+    }
     response = client.post(url, data=data)
 
     # make sure it redirects
@@ -36,14 +42,20 @@ def test_add():
     assert todo_list[1][0][0] == "Task 1"
     assert todo_list[1][0][1]["check"] == 0
     assert todo_list[1][0][1]["priority"] == "3"
-    assert todo_list[1][0][1]["tags"]==["#Home", "#Dog"]
+    assert todo_list[1][0][1]["tags"] == ["#Home", "#Dog"]
     assert todo_list[1][0][1]["time"] == current_time
 
-    #Get current time again 
+    # Get current time again
     current_time = datetime.now().strftime("%H:%M")
 
     # add another item
-    data = {"new_todo": "Task 2", "priority": "2", "dow": "Tuesday", "tags":"Yard", "time": datetime.now().strftime("%H:%M")}
+    data = {
+        "new_todo": "Task 2",
+        "priority": "2",
+        "dow": "Tuesday",
+        "tags": "Yard",
+        "time": datetime.now().strftime("%H:%M"),
+    }
     response = client.post(url, data=data)
 
     # check list len
@@ -92,10 +104,22 @@ def test_up():
     # add an t3
     client = app.test_client()
     url = "/add/"
-    data = {"new_todo": "Task 3", "priority": "2", "dow": "Tuesday", "tags":"Yard", "time": datetime.now().strftime("%H:%M")}
+    data = {
+        "new_todo": "Task 3",
+        "priority": "2",
+        "dow": "Tuesday",
+        "tags": "Yard",
+        "time": datetime.now().strftime("%H:%M"),
+    }
     response = client.post(url, data=data)  # add task 3
 
-    data = {"new_todo": "Task 4", "priority": "2", "dow": "Tuesday", "tags":"Yard", "time": datetime.now().strftime("%H:%M")}
+    data = {
+        "new_todo": "Task 4",
+        "priority": "2",
+        "dow": "Tuesday",
+        "tags": "Yard",
+        "time": datetime.now().strftime("%H:%M"),
+    }
     response = client.post(url, data=data)  # add task 4
 
     assert todo_list[1][0][0] == "Task 2"
@@ -235,13 +259,37 @@ def test_archive():
     assert len(archived) == 2
 
     url = "/add/"
-    data = {"new_todo": "Task 1", "priority": "1", "dow": "Friday", "tags":"Yard", "time": datetime.now().strftime("%H:%M")}
+    data = {
+        "new_todo": "Task 1",
+        "priority": "1",
+        "dow": "Friday",
+        "tags": "Yard",
+        "time": datetime.now().strftime("%H:%M"),
+    }
     response = client.post(url, data=data)
-    data = {"new_todo": "Task 2", "priority": "2", "dow": "Wednesday", "tags":"Yard", "time": datetime.now().strftime("%H:%M")}
+    data = {
+        "new_todo": "Task 2",
+        "priority": "2",
+        "dow": "Wednesday",
+        "tags": "Yard",
+        "time": datetime.now().strftime("%H:%M"),
+    }
     response = client.post(url, data=data)
-    data = {"new_todo": "Task 3", "priority": "3", "dow": "Monday", "tags":"Yard", "time": datetime.now().strftime("%H:%M")}
+    data = {
+        "new_todo": "Task 3",
+        "priority": "3",
+        "dow": "Monday",
+        "tags": "Yard",
+        "time": datetime.now().strftime("%H:%M"),
+    }
     response = client.post(url, data=data)
-    data = {"new_todo": "Task 4", "priority": "4", "dow": "Sunday", "tags":"Yard", "time": datetime.now().strftime("%H:%M")}
+    data = {
+        "new_todo": "Task 4",
+        "priority": "4",
+        "dow": "Sunday",
+        "tags": "Yard",
+        "time": datetime.now().strftime("%H:%M"),
+    }
     response = client.post(url, data=data)
 
     url = "/toggle_check/0/0"
