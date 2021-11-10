@@ -45,16 +45,7 @@ jobs:
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-
-    - name: Check test code coverage
-      uses: alexanderdamiani/pytester-cov@v1.2.1
-      with:
-        pytest-root-dir: . 
-        pytest-tests-dir: .
-        requirements-file: requirements.txt 
-        cov-threshold-single: 70 
-        cov-threshold-total: 90 
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics 
         
     - name: Deploy to heroku
       uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
@@ -62,12 +53,4 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
         heroku_email: dhruvjoshi1998@gmail.com
-        
-#     - name: Deploy to heroku
-#       env:
-#         HEROKU_API_TOKEN: ${{secrets.HEROKU_API_TOKEN}}
-#         HEROKU_APP_NAME: ${{secrets.HEROKU_APP_NAME}}
-#       if: github.ref == 'refs/heads/main' && job.status == 'success'
-#       run: |
-#         git remote add heroku https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git
-#         git push heroku HEAD:main -f
+
