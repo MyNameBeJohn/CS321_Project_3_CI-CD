@@ -48,19 +48,20 @@ def remove(day_number, task_number):
     todo_list[day_number].pop(task_number)
     return redirect(url_for("home"))
 
+
 @app.route("/clear")
 def clear_completed():
-	remove = []
-	for i, day in enumerate(todo_list):
-		for j, (task_name, data) in enumerate(day):
-			if data["check"]:
-				archived.append(day[j])
-				remove.append((i, j))
+    remove = []
+    for i, day in enumerate(todo_list):
+        for j, (task_name, data) in enumerate(day):
+            if data["check"]:
+                archived.append(day[j])
+                remove.append((i, j))
 
-	for i, j in reversed(remove):
-		todo_list[i].pop(j)
+    for i, j in reversed(remove):
+        todo_list[i].pop(j)
 
-	return redirect(url_for("home"))
+    return redirect(url_for("home"))
 
 
 @app.route("/up/<int:day_number>/<int:task_number>")
